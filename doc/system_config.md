@@ -1,6 +1,6 @@
 # System Configuration
 
-[⇦ Back](./README.md)
+[⇦ Back](../README.md)
 
 Before building the CAETÊ source code, ensure that your system is properly configured. Read the [build_instructions](./build_instructions.md) file for more information about setting up the development environment on different operating systems. This document provides an overview of the system requirements and configuration steps.
 
@@ -73,9 +73,9 @@ If you want to use gfortran, [download mingw-w64 from WinLibs](https://winlibs.c
 ### Python and Dependencies
 
 - [Python 3.11](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe)
-- [Python requirements](./src/requirements_3xx_last.txt) for Windows.
+- [Python requirements](../src/requirements_3xx_last.txt) for Windows.
 
-See the [Windows Makefile](./src/Makefile_win) for instructions on how to build the Python extension module.
+See the [Windows Makefile](../src/Makefile_win) for instructions on how to build the Python extension module.
 
 The Windows Makefile calls the `ifx.exe` compiler. The Makefile must be executed in a [shell with the proper environment
 In the windows Makefile the ifx.exe compiler is called. The Makefile must be executed in a [shell with the proper environment](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2023-0/use-the-setvars-script-with-windows.html#GUID-D22D6A5C-25BC-46EE-B8D9-3530184ADCD6)
@@ -130,9 +130,9 @@ In linux it is possible to run the model in python 3.11, 3.12 and 3.13. However,
 
 Note: At the current time, the new building (meson) system was only working on linux. If you are using windows, you will need to use python 3.11.
 
-Python Dependencies: see the [requirements](./src/requirements_3xx_last.txt).
+Python Dependencies: see the [requirements](../src/requirements_3xx_last.txt).
 
-Edit the PYEXEC variable in the [linux Makefile](./src/Makefile) to match the python that you will use to run the model.
+Edit the PYEXEC variable in the [linux Makefile](../src/Makefile) to match the python that you will use to run the model.
 
 Use the make target setup to install python libraries.
 
@@ -185,4 +185,4 @@ The idea is that when you want to do a experiment with the model, you create a s
 
 ```caete_driver_CMIP6.py``` runs the model with CMIP6 forcing data for 4 gridcells . You need to edit the paths to the input data files in the ```caete_driver_CMIP6.py``` and ```caete_driver.py``` scripts before running them.
 
-[⇦ Back](./README.md)
+[⇦ Back](../README.md)
