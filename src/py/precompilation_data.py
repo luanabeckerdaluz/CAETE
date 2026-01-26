@@ -1,4 +1,42 @@
+# -*-coding:utf-8-*-
+# "CAETÊ"
+# Author:  João Paulo Darela Filho
 
+# _ = """ CAETE-DVM-CNP - Carbon and Ecosystem Trait-based Evaluation Model"""
+
+# """
+# Copyright 2017- LabTerra
+
+#     This program is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# """
+
+
+import os
+from pathlib import Path
+from config import fetch_config
+
+caete_config = fetch_config()
+# Set the environment variable in the current PowerShell session
+
+descrp = "This script creates a global.f90 file with parameters defined in the caete.toml file.\
+   This script must run before compiling the Fortran code to set the number of Plant Life Strategies (PLSs) simulated by the model."
+
+NTRAITS = caete_config.metacomm.ntraits # type: ignore
+NPLS = caete_config.metacomm.npls_max # type: ignore # Max number of Plant Life Strategies per community
+OMP_NUM_THREADS = caete_config.multiprocessing.omp_num_threads # type: ignore
+
+global_f90 = f"""
 ! Copyright 2017- LabTerra
 
 !     This program is free software: you can redistribute it and/or modify
@@ -38,9 +76,15 @@ module global_par
    real(r_8),parameter,public :: gm = 3.0D0                      ! mm s-1
    real(r_8),parameter,public :: sapwood = 0.05D0                ! Fraction of wood tissues that are sapwood
    real(r_8),parameter,public :: ks = 0.25                       ! P Sorption
-   integer(i_4),parameter,public :: npls = 1000                ! Number of Plant Life Strategies-PLSs simulated (Defined at compile time)
-   integer(i_4),parameter,public :: ntraits = 17          ! Number of traits for each PLS
-   integer(i_4),parameter,public :: omp_nthreads = 2 ! Number of OpenMP threads
+   integer(i_4),parameter,public :: npls = {NPLS}                ! Number of Plant Life Strategies-PLSs simulated (Defined at compile time)
+   integer(i_4),parameter,public :: ntraits = {NTRAITS}          ! Number of traits for each PLS
+   integer(i_4),parameter,public :: omp_nthreads = {OMP_NUM_THREADS} ! Number of OpenMP threads
 
 end module global_par
 
+"""
+
+root = Path(os.getcwd()).resolve()
+print(f"\n\n\nSetting the number of Plant Life Strategies (n PLSs = {NPLS}) to the global.f90 file\n\n\n")
+with open(f"{root}/fortran/global.f90", 'w') as fh:
+    fh.write(global_f90)

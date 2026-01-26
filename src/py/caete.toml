@@ -39,12 +39,12 @@ mp = false # Use MPI for reading netcdf files.
 # Configs for parallelization
 [multiprocessing]
 # TODO: Look at where this one is used. I forgot completely. Should be something in dataframes.py
-nprocs= 64 # Threads/processes used to post process the **Output**. Not used by the model itself.
+nprocs = 3 # Threads/processes used to post process the **Output**. Not used by the model itself.
 
 # max_processes limit the number of python processes used to run the model.
 # Should not be larger than the number of available logical cores.
 # max_processes = 16 # Number of python processes used to run the model. e.g., use 128 in sombrero
-max_processes = 16
+max_processes = 3
 
 # Number of threads used by OpenMP which each python process can use.
 # Must compile the extension module with OpenMP support to have any effect. See the Makefile(_win)

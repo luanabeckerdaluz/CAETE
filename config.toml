@@ -1,0 +1,6 @@
+# Runtime config for CAETE model
+region_name = "pan_amazon_hist"
+obsclim_files = "../input/20CRv3-ERA5/obsclim/caete_input_20CRv3-ERA5_obsclim.nc"
+spinclim_files = "../input/20CRv3-ERA5/spinclim/caete_input_20CRv3-ERA5_spinclim.nc"
+gridlist = "../grd/gridlist_test.csv"
+co2_path = "../input/co2/historical_CO2_annual_1765-2024.csv"

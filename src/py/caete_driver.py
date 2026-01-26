@@ -46,6 +46,25 @@ if PROFILING:
 
 if __name__ == "__main__":
 
+    import argparse
+    import tomllib
+    from pathlib import Path
+    import os
+    import sys
+
+    # Add src/ to Python path for caete_module
+    sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+    parser = argparse.ArgumentParser(description="Run CAETE model")
+    parser.add_argument('--config', type=str, default='caete.toml', help='Path to runtime config TOML file')
+    args = parser.parse_args()
+
+    # Load runtime config
+    runtime_config = {}
+    if Path(args.config).exists():
+        with open(args.config, 'rb') as f:
+            runtime_config = tomllib.load(f)
+
     if PROFILING:
         # Create a profile object
         print("Profiling is enabled. This will slow down the execution of the model.")
@@ -70,16 +89,16 @@ if __name__ == "__main__":
     fn: worker = worker()
 
     # Name of the region. This name will be used to create the output folder.
-    region_name = "pan_amazon_hist" # Name of the run (the outputs of this region will be saved in this folder). Look at caete.toml
+    region_name = runtime_config.get('region_name', "pan_amazon_hist")  # Name of the run (the outputs of this region will be saved in this folder). Look at caete.toml
 
     # Paths to input data
-    obsclim_files = "../input/20CRv3-ERA5/obsclim/caete_input_20CRv3-ERA5_obsclim.nc"
-    spinclim_files = "../input/20CRv3-ERA5/spinclim/caete_input_20CRv3-ERA5_spinclim.nc"
+    obsclim_files = runtime_config.get('obsclim_files', "../input/20CRv3-ERA5/obsclim/caete_input_20CRv3-ERA5_obsclim.nc")
+    spinclim_files = runtime_config.get('spinclim_files', "../input/20CRv3-ERA5/spinclim/caete_input_20CRv3-ERA5_spinclim.nc")
 
     # Gridlists control which gridcells will be used in the simulation. In the grd folder there
     # are some examples of gridlists that can be used to run the model in different regions or
     # with different number of gridcells.
-    gridlist = read_csv("../grd/gridlist_test.csv") # Test gridlist n = 16
+    gridlist = read_csv(runtime_config.get('gridlist', "../grd/gridlist_test.csv")) # Test gridlist n = 16
 
     # Soil hydraulic parameters, e.g.,  wilting point(RWC), field capacity(RWC) and water saturation(RWC) for soil layers
     # tsoil = # Top soil
@@ -91,7 +110,7 @@ if __name__ == "__main__":
     #CO2 atmospheric data. The model expects a formated table in a text file with
     # exactly 2 columns (year, co2 concentration) separetd by a space, a coma, a semicolon etc.
     # A header is optional. The model also expects annual records in ppm (parts per million).
-    co2_path = Path("../input/co2/historical_CO2_annual_1765-2024.csv")
+    co2_path = Path(runtime_config.get('co2_path', "../input/co2/historical_CO2_annual_1765-2024.csv"))
 
     # Read PLS table. The model expects csv file created with the table_gen defined in
     # the plsgen.py script. This table contains the global PLS definitions. We also refer to

@@ -73,16 +73,16 @@ FLFLAGS = -c -g -Wall -fcheck=all -Wextra -ffpe-trap=invalid,zero,overflow,under
 #MAIN_SUB = budget_fixed.F90
 
 # Use budget.F90 for heap allocation (slower, but allows larger number of PLS)
-MAIN_SUB = budget.F90
+MAIN_SUB = fortran/budget.F90
 
 
 # Sources for extension module creation (F2PY)
-src_lib = types.f90 global.f90 photo_par.f90 funcs.f90 evap.f90 soil_dec.f90 cc.f90 allocation.f90 productivity.f90
+src_lib = fortran/types.f90 fortran/global.f90 fortran/photo_par.f90 fortran/funcs.f90 fortran/evap.f90 fortran/soil_dec.f90 fortran/cc.f90 fortran/allocation.f90 fortran/productivity.f90
 sources = $(src_lib) $(MAIN_SUB)
 
 
 # Objects for compilation of the debug executable (LINUX)
-src_obj = types.o photo_par.o global.o funcs.o evap.o soil_dec.o cc.o allocation.o productivity.o
+src_obj = build/types.o build/photo_par.o build/global.o build/funcs.o build/evap.o build/soil_dec.o build/cc.o build/allocation.o build/productivity.o
 objects = $(src_obj) $(basename $(MAIN_SUB)).o debug_caete.o
 
 
@@ -99,22 +99,26 @@ mingw64_build:
 # Python setup
 setup:
 	@echo "Installing dependencies..."
-	$(PIP) install -r requirements_3xx_last.txt
+	$(PIP) install -r requirements.txt
 
 modules: $(sources)
-	$(FC) -c $(sources)
+	@mkdir -p build
+	@for src in $(sources); do \
+		obj=build/$$(basename $$src .f90).o; \
+		$(FC) -c -J build/ $$src -o $$obj; \
+	done
 
 # Build the extension module (caete_module) from .F90 source
 # To be used when python >= 3.12
 ext_mod_meson: $(sources) modules
-	@$(PYEXEC) precompilation_data.py
+	@$(PYEXEC) py/precompilation_data.py
 	$(F2PY) $(HFLAG) $(INTERFACES) $(sources) -m $(MODNAME) $(OVRTFLAG) --quiet
 	@export FC=$(FC) && \
 	$(F2PY) $(INTERFACES) $(CFLAG) $(sources) --build-dir build --backend meson --f90flags="-Wall $(EXT_FLAGS)" $(DEBUG)
 
 
 ext_mod_meson_parallel: $(sources) modules
-	@$(PYEXEC) precompilation_data.py
+	@$(PYEXEC) py/precompilation_data.py
 	$(F2PY) $(HFLAG) $(INTERFACES) $(sources) -m $(MODNAME) $(OVRTFLAG) --quiet
 	@export FC=$(FC) && \
 	$(F2PY) $(INTERFACES) $(CFLAG) $(sources) --build-dir build --backend meson --f90flags="-Wall $(EXT_FLAGS) -fopenmp" $(OMP_LIB) $(DEBUG) --no-freethreading-compatible
@@ -123,7 +127,7 @@ ext_mod_meson_parallel: $(sources) modules
 # Build the extension module (caete_module) from .F90 source
 # To be used when python == 3.11
 ext_mod_legacy: $(sources) modules
-	@$(PYEXEC) precompilation_data.py
+	@$(PYEXEC) py/precompilation_data.py
 	$(F2PY) $(HFLAG) $(INTERFACES) $(sources) -m $(MODNAME) $(OVRTFLAG) --quiet
 	$(F2PY) $(INTERFACES) $(CFLAG) $(sources) --f90exec="$(FC)" --f77exec="$(FC)" --f90flags="-Wall $(EXT_FLAGS)" --backend distutils $(DEBUG)
 
@@ -133,7 +137,7 @@ ext_mod_legacy: $(sources) modules
 # pyf interface
 interface: $(sources)
 	@echo "Creating fortran interfaces for the caete_module using f2py..."
-	@$(PYEXEC) precompilation_data.py ## Set the number of PLS in the global module and validate config file
+	@$(PYEXEC) py/precompilation_data.py ## Set the number of PLS in the global module and validate config file
 	$(F2PY) $(HFLAG) $(INTERFACES) $(sources) $(MFLAG) $(MODNAME) $(OVRTFLAG) --quiet
 
 # Build the shared object (caete_module) from .F90 source
@@ -143,7 +147,7 @@ so_parallel: $(sources) interface
 	                                      -fopenmp " $(OMP_LIB) $(DEBUG) --backend distutils --no-freethreading-compatible
 	@echo "Parallel version of caete_module created using $(FC)"
 #	@echo "Compiling community module..."
-#	$(PYEXEC) setup.py build_ext --inplace
+#	$(PYEXEC) py/setup.py build_ext --inplace
 
 # Build the shared object (caete_module) from .F90 source
 # Serial version
@@ -151,12 +155,12 @@ so: $(sources) interface
 	$(F2PY)  $(INTERFACES) $(CFLAG) $(sources) --f90exec="$(FC)" --f77exec="$(FC)" --f90flags="-Wall $(EXT_FLAGS) " --quiet $(DEBUG)
 	@echo "Serial version of caete_module created using $(FC)"
 #	@echo "Compiling community module..."
-#	$(PYEXEC) setup.py build_ext --inplace
+#	$(PYEXEC) py/setup.py build_ext --inplace
 # =================================================================================================
 
 # Build objects for the DEBUG program
 debug: $(objects) so
-	$(PYEXEC) create_plsbin.py
+	$(PYEXEC) py/create_plsbin.py
 	$(FC) -o $(DEBUG_PROGRAM) $(FCFLAGS) $(objects)
 
 global.o: global.f90
@@ -214,7 +218,7 @@ budget.mod: budget.o budget.F90
 	$(FC) $(FLFLAGS) budget.F90
 
 debug_caete.o: debug_caete.f90
-	$(FC) $(FLFLAGS) debug_caete.f90
+	$(FC) $(FLFLAGS) -J build/ debug_caete.f90
 
 
 # CLEAN targets
