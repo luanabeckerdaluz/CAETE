@@ -22,7 +22,7 @@ After generating the PLS table, access the `caete_model.py` file and update the 
 
 ## 2. Set input data
 
-Download input files following [Input Files](./input_data.md) section and place it inside `input` folder in this repository. For example, using **20CRv3-ERA5** data, you will have a directory structure like this:
+Download the input files following [Input Files](./input_data.md) section. Optionally, you can place them inside the `input` folder in this repository. For example, using **20CRv3-ERA5** data, you will have a directory structure like this:
 
 ```
 $ $input/
