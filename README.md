@@ -1,37 +1,14 @@
-# CAETÊ
+# Documentação CAETE
 
-This repository is now archived and will no longer be actively maintained. For the latest developments, please refer to the [CAETE](https://github.com/LabTerra/CAETE) repository.
+**Este repositório possui um **[Github Actions](.github/workflows/deploy-sphinx.yml)** configurado para fazer deploy automático da documentação utilizando sphinx.
 
+## Build
 
-This repository contains the implementation of the CAETÊ (CArbon and Ecosystem Trait-based Evaluation) Dynamic Vegetation Model, which includes Nitrogen and Phosphorus cycling.
-
-The `master` branch contains the current development version of the model. A prototype version of the model is available on the `CAETE-DVM-v0.1` branch.
-
-[Overview](build_instruction_slides.md)
-
-[System requirements, building, and running](system_config.md)
-
-[Input data](input_data.md)
-
-[Model architecture](./caete_architecture.md)
-
-## Help
-
-If you need help configuring your development environment, installing Python, managing CAETÊ dependencies, or setting up a debugging environment in VS Code, please open an issue in this repository. You can also refer to the [CAETÊ starting pack tutorial](https://github.com/fmammoli/CAETE-Tutorials), but please note that its content is outdated.
-
-## Contributors
-
-- Anja Rammig
-- Bárbara R. Cardeli
-- Bianca Rius
-- Caio Fascina
-- Carlos A. Quesada
-- David Lapola
-- Felipe Mammoli
-- Gabriela M. Sophia
-- Gabriel Marandola
-- Helena Alves
-- Katrin Fleischer
-- Phillip Papastefanou
-- Tatiana Reichert
-- Thiago S. F. Silva
+```bash
+python -m venv ~/sphinx
+source activate ~/sphinx
+pip install -r docs/requirements.txt
+sphinx-apidoc -o docs/modules src/python/ --force
+sphinx-apidoc -o docs/modules src/python/ --force --module-first --separate
+sphinx-build -b html docs/ docs/_build
+```
