@@ -1,0 +1,22 @@
+{
+    "build_and_run/docker": 0.007,
+    "build_and_run/index": 0.001,
+    "build_and_run/manually": 0.086,
+    "development/git": 0.001,
+    "development/guidelines": 0.001,
+    "development/index": 0.001,
+    "development/installations": 0.001,
+    "index": 0.002,
+    "model_description/ecosystem_processes": 0.029,
+    "model_description/gridcell_occupation": 0.005,
+    "model_description/index": 0.001,
+    "model_description/input_data": 0.008,
+    "model_description/mortality": 0.001,
+    "model_description/output_data": 0.001,
+    "model_description/pls": 0.004,
+    "model_description/spinup": 0.001,
+    "model_description/tables": 0.057,
+    "model_description/variant_functional_trait": 0.012,
+    "model_description/water_balance": 0.008,
+    "tutorials": 0.001
+}
