@@ -63,6 +63,30 @@ language = 'en_UK'
 
 html_theme = 'sphinx_rtd_theme'
 
+
+
+# html_title = "PyData Sample Site"
+# html_theme = 'pydata_sphinx_theme'
+
+# html_title = "Insipid Sample Site"
+# html_permalinks_icon = '\N{SECTION SIGN}'
+# html_theme = 'insipid'
+
+# html_title = "Clarity Sample Site"
+# html_theme = 'sphinx_clarity_theme'
+
+# html_title = "Conestack Sample Site"
+# html_theme = 'conestack'
+
+# html_title = "Lumina Sample Site"
+# html_theme = 'lumina'
+
+
+
+
+
+
+
 # Caminho do logo que será exibido no canto superior esquerdo
 html_logo = '_static/logo1.png'
 
