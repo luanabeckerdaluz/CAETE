@@ -1,4 +1,4 @@
-Download source code zip **(recommended)**
+Download zip source code **(recommended)**
 ==========================================
 
 **1) Access** `CAETÊ source code on GitHub <https://github.com/LabTerra/CAETE/>`_.

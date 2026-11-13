@@ -1,12 +1,13 @@
 Clone source code using git and VSCode
 ======================================
 
-
 **1) Install Git**
 
-Before install, check if git is already installed. To do this, please open a terminal and type the command `git`. In case you need to install git, please follow the instructions on https://git-scm.com/install/
+Before install, check if git is already installed. To do this, please open a terminal and type the command ``git``.
 
-To check if git was correclty installed, please open terminal and type command `git`.
+In case you need to install git, please follow the instructions on https://git-scm.com/install/
+
+To check if git was correclty installed, test in your terminal if the command ``git`` works.
 
 ----
 
@@ -16,11 +17,11 @@ To install VSCode, please download it and install using the following link: http
 
 ----
 
-**3) Clone CAETÊ source code and select branch (Terminal or VSCode)**
+**3) Clone CAETÊ source code and select a specific branch (Terminal or VSCode)**
 
     **3.1) Using terminal**
 
-        ..code-block bash::
+        .. code-block:: bash
         
             # Go to folder where you want to clone repo
             cd __folder__
@@ -39,15 +40,38 @@ To install VSCode, please download it and install using the following link: http
 
     **3.2) Using VSCode**
 
-        asdasdasdasd
-        asd
-        asd
-        as
-        da
+        In the Welcome page, select the option ``Clone Git Repository``:
 
-        .. figure:: ../../img/github_select_branch.png
+        .. figure:: ../../img/vscode_clone_repo_1.png
             :align: center
-            :width: 40%
+            :width: 60%
             :figclass: align-center
 
-            **Selecting a branch on Github.**
+            **Select the VSCode option to clone a GitHub repository.**
+
+        Insert GitHub URL ``https://github.com/LabTerra/CAETE``
+        
+        .. figure:: ../../img/vscode_clone_repo_2.png
+            :align: center
+            :width: 60%
+            :figclass: align-center
+
+            **Insert CAETÊ repository URL and clone.**
+
+        Then select the option **Open in New Window**. VSCode will load this cloned repository in the new window. 
+
+        .. figure:: ../../img/vscode_clone_repo_3.png
+            :align: center
+            :width: 60%
+            :figclass: align-center
+
+            **Open the repository in a new VSCode window.**
+
+        After the repository was opened, you can select the VSCode source control feature (3º option from side menu) and then click on the current branch name (in this example, it is ``main``). It will list all the branches. To select a branch, just click in one of them.
+
+        .. figure:: ../../img/vscode_clone_repo_4.png
+            :align: center
+            :width: 60%
+            :figclass: align-center
+
+            **Selecting a specific branch.**

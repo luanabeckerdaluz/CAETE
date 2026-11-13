@@ -1,15 +1,14 @@
 Run CAETÊ
 =========
 
-
-Currently, there are 2 options to run CAETÊ:
-
-To run CAETÊ, we need to follow 2 steps:
+To run CAETÊ and read its outputs, we need to follow 3 steps:
       1) Download CAETÊ source code
       2) Run the model
+      3) Read outputs
 
-   These 2 steps are detailed below in sections:
+   These steps are detailed below in sections:
 
+----
 
 .. toctree::
    :maxdepth: 1
