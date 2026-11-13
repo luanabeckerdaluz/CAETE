@@ -11,7 +11,7 @@ To run CAETÊ and read its outputs, we need to follow 3 steps:
 ----
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :numbered:
 
    download_source_code/index

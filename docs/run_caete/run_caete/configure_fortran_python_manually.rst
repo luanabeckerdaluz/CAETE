@@ -1,5 +1,5 @@
-Install Python, pyenv and gfortran locally and run CAETÊ
-========================================================
+Install all development tools locally and run CAETÊ
+===================================================
 
 Requirements for Windows
 ------------------------
@@ -19,7 +19,7 @@ You can install them using your favorite package manager (e.g. ``apt``).
 
 - **make**: This is an automation utility used in software development.
 - **gfortran**: The Fortran compiler is usually pre-installed on your system or easily available.
-- **Python and pip**: In case you don't have Python and pip already installed in your system, please install it directly on your system or using a Conda environment.
+- **Python, pip and pyenv**: In case you don't have Python and pip already installed in your system, please install it directly on your system or using a Conda environment.
 
 Make sure you have them properly installed before running the code.
 
@@ -59,18 +59,4 @@ Follow `NumPy f2py "quick way" <https://numpy.org/doc/stable/f2py/f2py.getting-s
 Compile CAETÊ and run
 ---------------------
 
-To compile CAETÊ Fortran modules and run CAETÊ from command line, follow the instructions!
-asd
-as
-da
-sd
-a
-sd
-a
-sd
-a
-sd
-a
-s
-d
-asd
+All the commands to build and run CAETÊ are available in the section :doc:`caete_command_line`. 
